@@ -1,0 +1,57 @@
+public class List{
+
+    private final int EXPAND_AMOUNT = 10;
+    private int[] array;
+    private int currentIndex;
+    
+    public List(){
+	this(10);
+    }
+    
+    public List(int size){
+	this.array = new int[size];
+	this.currentIndex = 0;
+    }
+
+    public void insert(int key){
+	if((currentIndex + 1) == this.array.length)
+	    this.array = expandArray(this.array, EXPAND_AMOUNT);
+
+	this.array[currentIndex] = key;
+	++currentIndex;
+    }
+
+    public void insert(int key, int position){
+	int[] temp = new int[this.array.length];
+	int tem = 0;
+	for(int x = 0; x < (currentIndex + 1); ++x){
+	    if(x == position){
+		tem = this.array[x];
+		temp[x] = key;
+	    }else if(x == (position + 1)){
+		temp[x] = tem;
+	    }else if(x > (position +1)){
+		temp[x + 1] = this.array[x];
+	    }else{
+		temp[x] = this.array[x];
+	    }
+	 }
+
+	this.array = temp;
+    }
+
+
+    private int[] expandArray(int[] array, int amount){
+	int[] arr = new int[array.length + amount];
+	for(int x = 0; x < array.length; ++x)
+	    arr[x] = array[x];
+	return arr;
+    }
+
+    public void printList(){
+	for(int x = 0; x < currentIndex; ++x)
+	    System.out.printf("%d ", this.array[x]);
+	System.out.println("");
+    }
+
+}
